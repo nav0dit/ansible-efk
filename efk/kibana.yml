@@ -1,0 +1,12 @@
+---
+
+- name: Kibana installation
+  hosts: kibana
+  remote_user: vagrant
+  become: yes
+  any_errors_fatal: true
+  tags:
+    - kibana
+    - efk
+  roles:
+    - kibana

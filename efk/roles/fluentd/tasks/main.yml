@@ -1,0 +1,50 @@
+---
+- name: Create fluentd's yaml storage directory
+  file:
+    path: "{{ fl_yaml_dir }}"
+    state: directory
+    group: "{{ fl_system_group }}"
+    owner: "{{ fl_system_user }}"
+    mode: 0750
+    recurse: no
+
+- name: Add fluentd configuration file - fluentd-rbac.yml
+  template:
+    backup: no
+    dest: "{{ fl_yaml_dir }}/fluentd-rbac.yml"
+    group: "{{ fl_system_group }}"
+    owner: "{{ fl_system_user }}"
+    mode: 0640
+    src: "{{ role_path }}/templates/fluentd/fluentd-rbac.yml.j2"
+  notify: Restart fluentd.service
+
+- name: Add fluentd configuration file - fluentd-daemonset.yml
+  template:
+    backup: no
+    dest: "{{ fl_yaml_dir }}/fluentd-daemonset.yml"
+    group: "{{ fl_system_group }}"
+    owner: "{{ fl_system_user }}"
+    mode: 0640
+    src: "{{ role_path }}/templates/fluentd/fluentd-daemonset.yml.j2"
+
+- name: Deploy fluentd rbac definition
+  shell: kubectl apply -f "{{ fl_yaml_dir }}/fluentd-rbac.yml"
+  ignore_errors: yes
+  register: fluentd_rbac_status
+  changed_when: fluentd_rbac_status.rc != 0
+
+- name: Deploy fluentd daemonset definition
+  shell: kubectl apply -f "{{ fl_yaml_dir }}/fluentd-daemonset.yml"
+  ignore_errors: yes
+  register: fluentd_ds_status
+  changed_when: fluentd_ds_status.rc != 0
+
+- name: Verbose output of fluentd rbac apply
+  debug:
+    var: fluentd_rbac_status
+  #when: fluentd_rbac_status.rc != 0
+
+- name: Verbose output of fluentd daemonset apply
+  debug:
+    var: fluentd_ds_status
+  #when: fluentd_ds_status.rc != 0

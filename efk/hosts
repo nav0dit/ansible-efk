@@ -1,0 +1,19 @@
+---
+all:
+  hosts:
+    kubemaster.testlab.nav:
+    kubeminion1.testlab.nav:
+    kubeminion2.testlab.nav:
+  children:
+    elasticsearch:
+      hosts:
+        kubeminion2.testlab.nav:
+    kibana:
+      hosts:
+        kubeminion2.testlab.nav:
+    kubernetes_master:
+      hosts:
+        kubemaster.testlab.nav:
+    kubernetes_minion:
+      hosts:
+        kubeminion1.testlab.nav:

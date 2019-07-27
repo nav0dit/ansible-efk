@@ -1,0 +1,26 @@
+---
+# Common
+kb_version_major: 7.x
+kb_version_full: 7.2.0
+kb_network_interface: eth1
+kb_system_group: root
+kb_system_user: root
+kb_kibana_group: kibana
+kb_kibana_user: kibana
+kb_http_port: 5601
+kb_elastic_http_port: 9200
+kb_data_path: /opt/kibana/data
+kb_logs_path: /opt/kibana/logs
+kb_logs_file: kibana.log
+kb_dirs:
+  - "{{ kb_data_path }}"
+  - "{{ kb_logs_path }}"
+kb_status_allow_anonymous: "false"
+kb_csp_strict: "true"
+kb_timezone: "Asia/Kolkata"
+kb_verbose_logging_enabled: "true"
+
+
+# Debian
+kb_apt_key_url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+kb_apt_repository_url: "deb https://artifacts.elastic.co/packages/{{ es_version_major }}/apt stable main"

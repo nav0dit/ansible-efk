@@ -1,0 +1,12 @@
+---
+
+- name: Elasticsearch installation
+  hosts: elasticsearch
+  remote_user: vagrant
+  become: yes
+  any_errors_fatal: true
+  tags:
+    - elasticsearch
+    - efk
+  roles:
+    - elasticsearch

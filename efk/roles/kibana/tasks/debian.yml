@@ -1,0 +1,30 @@
+---
+- name: Add Apt signing key
+  apt_key:
+    url: "{{ kb_apt_key_url }}"
+    state: present
+    validate_certs: false
+
+- name: Install dependencies
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - apt-transport-https
+
+- name: Add Apt repository
+  apt_repository:
+    repo: {{ kb_apt_repository_url }}
+    update_cache: no
+    state: present
+
+- name: Install kibana package
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - kibana-{{ kb_version_full }}

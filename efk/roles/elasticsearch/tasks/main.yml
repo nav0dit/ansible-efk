@@ -1,0 +1,76 @@
+---
+- include_tasks: redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+  
+- name: Sysctls configurations
+  sysctl:
+    name: "{{ item.key }}"
+    reload: yes
+    state: present
+    value: "{{ item.value }}"
+  with_items: "{{ es_var_sysctls }}"
+
+- name: Disable SWAP
+  block:
+    - name: Disable SWAP
+      shell: |
+        swapoff -a
+      changed_when: False
+    - name: Disable SWAP in fstab
+      replace:
+        path: /etc/fstab
+        regexp: '^(.+?\sswap\s+sw\s+.*)$'
+        replace: '# \1'
+
+- name: Create elasticsearch's data and log directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    group: "{{ es_elastic_group }}"
+    owner: "{{ es_elastic_user }}"
+    mode: 0755
+    recurse: no
+  with_items: "{{ es_dirs }}"
+
+- name: Add elasticsearch configuration file - elasticsearch.yml
+  template:
+    backup: no
+    dest: /etc/elasticsearch/elasticsearch.yml
+    group: "{{ es_elastic_group }}"
+    owner: "{{ es_system_user }}"
+    mode: 0660
+    src: "{{ role_path }}/templates/elasticsearch/elasticsearch.yml.j2"
+  notify: Restart elasticsearch.service
+
+- name: Add elasticsearch configuration file - jvm.options
+  template:
+    backup: no
+    dest: /etc/elasticsearch/jvm.options
+    group: "{{ es_elastic_group }}"
+    owner: "{{ es_system_user }}"
+    mode: 0660
+    src: "{{ role_path }}/templates/elasticsearch/jvm.options.j2"
+  notify: Restart elasticsearch.service
+
+- name: Patch elasticsearch systemd service file
+  template:
+    src: "{{ role_path }}/templates/systemd/override.conf.j2"
+    dest: /etc/systemd/system/elasticsearch.service.d/override.conf
+    group: "{{ es_system_group }}"
+    owner: "{{ es_system_user }}"
+    mode: 0644
+  notify: Restart elasticsearch.service
+
+- name: Ensure elasticsearch.service is enabled and started
+  systemd:
+    name: elasticsearch
+    daemon-reload: yes
+    enabled: yes
+    masked: no
+    state: started
+    no_block: no
+
+- meta: flush_handlers

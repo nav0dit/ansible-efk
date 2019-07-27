@@ -1,0 +1,4 @@
+---
+- import_playbook: elasticsearch.yml
+- import_playbook: kibana.yml
+- import_playbook: fluentd.yml
