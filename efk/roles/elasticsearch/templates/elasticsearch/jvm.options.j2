@@ -20,8 +20,8 @@
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
 
--Xms1g
--Xmx1g
+-Xms{{ es_java_heap_size }}
+-Xmx{{ es_java_heap_size }}
 
 ################################################################
 ## Expert settings
@@ -87,7 +87,10 @@
 -Dlog4j.shutdownHookEnabled=false
 -Dlog4j2.disable.jmx=true
 
--Djava.io.tmpdir=${ES_TMPDIR}
+# ES temporary directory
+# -Djava.io.tmpdir=${ES_TMPDIR}
+# This directory's mount should not be configured with "noexec" flag. 
+-Djava.io.tmpdir={{ es_tmp_path }}
 
 ## heap dumps
 
@@ -97,7 +100,7 @@
 
 # specify an alternative path for heap dumps; ensure the directory exists and
 # has sufficient space
--XX:HeapDumpPath=/var/lib/elasticsearch
+-XX:HeapDumpPath={{ es_java_heap_dump_path }}
 
 # specify an alternative path for JVM fatal error logs
 -XX:ErrorFile=/var/log/elasticsearch/hs_err_pid%p.log

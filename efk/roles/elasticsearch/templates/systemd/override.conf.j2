@@ -1,4 +1,8 @@
 [Service]
+{% if es_java_home != "" %}
+Environment=JAVA_HOME={{ es_java_home }}
+
+{% endif %}
 # Specifies the maximum file descriptor number that can be opened by this process
 LimitNOFILE=65535
 

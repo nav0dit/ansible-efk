@@ -1,5 +1,7 @@
 ---
 # Common
+# Specify value of JAVA_HOME variable below or leave it blank as it is.
+es_java_home: ""
 es_version_major: 7.x
 es_version_full: 7.2.0
 es_network_interface: eth1
@@ -13,13 +15,17 @@ es_var_sysctls:
 es_cluster_name: elasticsearch
 es_data_path: /opt/elasticsearch/data
 es_log_path: /opt/elasticsearch/logs
+es_tmp_path: /opt/elasticsearch/temp
 es_dirs:
   - "{{ es_data_path }}"
   - "{{ es_log_path }}"
+  - "{{ es_tmp_path }}"
 es_bootstrap_memory_lock_enabled: "false"
 es_http_port: 9200
 es_transport_port: 9300
 es_discovery_type: not-single-node
+es_java_heap_size: "1g"
+es_java_heap_dump_path: "{{ es_log_path }}"
 
 # Debian
 es_apt_key_url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
