@@ -48,10 +48,11 @@ all:
 - Increase file descriptors ...............................................Done
 - Ensure sufficient virtual memory.........................................Done
 - Ensure sufficient threads................................................Done
+- heap.size: ???...........................................................Done
+- -XX:HeapDumpPath=`path_to_empty_directory`...............................Done
+- $ES_TMPDIR - Change path.................................................Done
+- Ansible script for both ubuntu & centos..................................Done
 - JVM DNS cache settings...................................................won'tDo
 - Check GC logging parameters..............................................won'tDo
-- Temporary directory not mounted with noexec..............................
-- heap.size: ???...........................................................
-- -XX:HeapDumpPath=`path_to_empty_directory`...............................
-- $ES_TMPDIR - Change path.................................................
-- Ansible script for both ubuntu & centos..................................Done
+- Temporary directory not mounted with noexec..............................notDone
+
