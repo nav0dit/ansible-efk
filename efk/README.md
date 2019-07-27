@@ -16,7 +16,8 @@ time ansible-playbook --private-key=../../ssh-keys/id_rsa -i hosts efk.yml --tag
 time ansible-playbook --private-key=../../ssh-keys/id_rsa -i hosts efk.yml --tags efk
 
 ## Sample hosts file content :
-```all:
+```
+all:
   hosts:
     kubemaster.testlab.nav:
     kubeminion1.testlab.nav:
@@ -33,7 +34,8 @@ time ansible-playbook --private-key=../../ssh-keys/id_rsa -i hosts efk.yml --tag
         kubemaster.testlab.nav:
     kubernetes_minion:
       hosts:
-        kubeminion1.testlab.nav:```
+        kubeminion1.testlab.nav:
+```
 
 ## Tasks handled by this playbook :
 - cluster.name: kubernetes-logger..........................................Done
