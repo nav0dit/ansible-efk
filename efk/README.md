@@ -38,6 +38,7 @@ all:
 ```
 
 ## Tasks handled by this playbook :
+- JAVA_HOME................................................................Done
 - cluster.name: kubernetes-logger..........................................Done
 - node.name: `fqdn_of_host`................................................Done
 - network.host: `private_ip_of_host`.......................................Done
