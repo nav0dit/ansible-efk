@@ -38,21 +38,21 @@ all:
 ```
 
 ## Tasks handled by this playbook :
-- [ ] JAVA_HOME................................................................Done
-- [ ] cluster.name: kubernetes-logger..........................................Done
-- [ ] node.name: `fqdn_of_host`................................................Done
-- [ ] network.host: `private_ip_of_host`.......................................Done
-- [ ] discovery.seed_hosts: `private_ip_of_host`:`transport.port`..............Done
-- [ ] cluster.initial_master_nodes: `fqdn_of_host`.............................Done
-- [ ] Disable swapping.........................................................Done
-- [ ] Increase file descriptors ...............................................Done
-- [ ] Ensure sufficient virtual memory.........................................Done
-- [ ] Ensure sufficient threads................................................Done
-- [ ] heap.size: ???...........................................................Done
-- [ ] -XX:HeapDumpPath=`path_to_empty_directory`...............................Done
-- [ ] $ES_TMPDIR - Change path.................................................Done
-- [ ] Ansible script for both ubuntu & centos..................................Done
-- [ ] JVM DNS cache settings...................................................won'tDo
-- [ ] Check GC logging parameters..............................................won'tDo
-- [ ] Temporary directory not mounted with noexec..............................notDone
+- [x] JAVA_HOME
+- [x] cluster.name: kubernetes-logger
+- [x] node.name: `fqdn_of_host`
+- [x] network.host: `private_ip_of_host`
+- [x] discovery.seed_hosts: `private_ip_of_host`:`transport.port`
+- [x] cluster.initial_master_nodes: `fqdn_of_host`
+- [x] Disable swapping
+- [x] Increase file descriptors 
+- [x] Ensure sufficient virtual memory
+- [x] Ensure sufficient threads
+- [x] heap.size: ???
+- [x] -XX:HeapDumpPath=`path_to_empty_directory`
+- [x] $ES_TMPDIR - Change path
+- [x] Ansible script for both ubuntu & centos
+- [ ] JVM DNS cache settings
+- [ ] Check GC logging parameters
+- [ ] Temporary directory not mounted with noexec
 
