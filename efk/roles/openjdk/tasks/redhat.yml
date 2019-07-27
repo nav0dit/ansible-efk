@@ -1,0 +1,33 @@
+---
+- name: Install OpenJDK JRE package(s)
+  yum:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - "java-{{ java_redhat_version_full }}-openjdk"
+  when: java_type == "jre"
+
+- name: Install OpenJDK JDK package(s)
+  yum:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - "java-{{ java_redhat_version_full }}-openjdk-devel"
+  when: java_type == "jdk"
+
+- name: Find path for new JAVA binary
+  shell: update-alternatives --display java | grep -e "^/usr/lib/jvm" | awk '{print $1}' | grep "java-{{ java_redhat_version_full }}-openjdk"
+  register: java_bin_path
+  changed_when: false
+  when: java_register_alternative|bool
+
+- name: Update alternatives to point to new JAVA installation
+  alternatives:
+    link: /usr/bin/java
+    name: java
+    path: "{{ java_bin_path.stdout }}"
+  when: java_register_alternative|bool

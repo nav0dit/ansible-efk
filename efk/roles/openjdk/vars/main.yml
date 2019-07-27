@@ -1,0 +1,18 @@
+---
+# Java type to install, available values :
+# - jre
+# - jdk
+java_type: jre
+java_register_alternative: true
+
+# Version of openjdk JRE to install on Redhat based systems, available values :
+# - 1.7.0
+# - 1.8.0
+# - 11
+java_redhat_version_full: 1.8.0
+
+# Version of openjdk JRE to install on Debian based systems, available values :
+# - 7
+# - 8
+# - 11
+java_debian_version_full: 8

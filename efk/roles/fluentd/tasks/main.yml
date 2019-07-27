@@ -42,9 +42,9 @@
 - name: Verbose output of fluentd rbac apply
   debug:
     var: fluentd_rbac_status
-  #when: fluentd_rbac_status.rc != 0
+  when: fluentd_rbac_status.rc != 0
 
 - name: Verbose output of fluentd daemonset apply
   debug:
     var: fluentd_ds_status
-  #when: fluentd_ds_status.rc != 0
+  when: fluentd_ds_status.rc != 0

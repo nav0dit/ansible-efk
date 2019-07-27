@@ -1,0 +1,33 @@
+---
+- name: Install OpenJDK JRE package(s)
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - openjdk-{{ java_debian_version_full }}-jre
+  when: java_type == "jre"
+
+- name: Install OpenJDK JDK package(s)
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - openjdk-{{ java_debian_version_full }}-jdk
+  when: java_type == "jdk"
+
+- name: Find path for new JAVA binary
+  shell: update-alternatives --display java | grep -e "^/usr/lib/jvm" | awk '{print $1}' | grep "openjdk-{{ java_debian_version_full }}-jre"
+  register: java_bin_path
+  changed_when: false
+  when: java_register_alternative|bool
+
+- name: Update alternatives to point to new JAVA installation
+  alternatives:
+    link: /usr/bin/java
+    name: java
+    path: "{{ java_bin_path.stdout }}"
+  when: java_register_alternative|bool
