@@ -16,7 +16,7 @@
 
 - name: Add Apt repository
   apt_repository:
-    repo: {{ es_apt_repository_url }}
+    repo: "{{ es_apt_repository_url }}"
     update_cache: no
     state: present
 
@@ -27,4 +27,4 @@
     update_cache: yes
   vars:
     packages:
-      - elasticsearch-{{ es_version_full }}
+      - "elasticsearch={{ es_version_full }}"

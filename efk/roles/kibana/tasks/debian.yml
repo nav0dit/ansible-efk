@@ -16,7 +16,7 @@
 
 - name: Add Apt repository
   apt_repository:
-    repo: {{ kb_apt_repository_url }}
+    repo: "{{ kb_apt_repository_url }}"
     update_cache: no
     state: present
 
@@ -27,4 +27,4 @@
     update_cache: yes
   vars:
     packages:
-      - kibana-{{ kb_version_full }}
+      - "kibana={{ kb_version_full }}"

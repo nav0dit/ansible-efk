@@ -4,7 +4,7 @@
 
 - include_tasks: debian.yml
   when: ansible_os_family == 'Debian'
-  
+
 - name: Sysctls configurations
   sysctl:
     name: "{{ item.key }}"
@@ -54,6 +54,15 @@
     mode: 0660
     src: "{{ role_path }}/templates/elasticsearch/jvm.options.j2"
   notify: Restart elasticsearch.service
+
+- name: Create elasticsearch's override systemctl service directory
+  file:
+    path: /etc/systemd/system/elasticsearch.service.d
+    state: directory
+    group: "{{ es_system_group }}"
+    owner: "{{ es_system_user }}"
+    mode: 0755
+    recurse: yes
 
 - name: Patch elasticsearch systemd service file
   template:

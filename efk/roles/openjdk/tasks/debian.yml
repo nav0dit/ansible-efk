@@ -20,7 +20,7 @@
   when: java_type == "jdk"
 
 - name: Find path for new JAVA binary
-  shell: update-alternatives --display java | grep -e "^/usr/lib/jvm" | awk '{print $1}' | grep "openjdk-{{ java_debian_version_full }}-jre"
+  shell: update-alternatives --display java | grep -e "^/usr/lib/jvm" | awk '{print $1}' | grep "java-{{ java_debian_version_full }}-openjdk"
   register: java_bin_path
   changed_when: false
   when: java_register_alternative|bool

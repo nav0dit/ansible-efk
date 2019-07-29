@@ -16,7 +16,6 @@
     owner: "{{ fl_system_user }}"
     mode: 0640
     src: "{{ role_path }}/templates/fluentd/fluentd-rbac.yml.j2"
-  notify: Restart fluentd.service
 
 - name: Add fluentd configuration file - fluentd-daemonset.yml
   template:
